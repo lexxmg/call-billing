@@ -1,34 +1,51 @@
 'use strict';
 
+const inputFile = document.querySelector('.form__item');
+
+inputFile.addEventListener('change', () => {
+  const file = inputFile.files[0];
+
+  let reader = new FileReader();
+  reader.readAsText(file);
+
+  reader.addEventListener('load', () => {
+    //console.log(reader.result);
+    let arr = strToArr(reader.result);
+    let result = [];
+
+    for (let i = 1; i < arr.length; i++) {
+      result.push( new Subscribers(arr, arr[i]) );
+    }
+
+    for (let obj of result) {
+      let numA = obj['Номер A'];
+
+      if ( isCode(numA, 926935) ) {
+        //console.log( numA );
+        obj.userName = 'lexx';
+        console.log(obj);
+        console.log(obj.userName);
+      }
+
+      if ( isCode(numA, 916950) ) {
+        //console.log( numA );
+        obj.userName = 'pasha';
+        console.log(obj);
+        console.log(obj.userName);
+      }
+    }
+  });
+
+  reader.addEventListener('error', () => {
+    console.log('файл не прочитан ' + reader.error);
+  });
+});
 
 
 // let strToArr = strExample.split('\n');
 // strToArr[2].split(';')[5].replaceAll('"', '').trim();
 
-let arr = strToArr(strExample);
-let result = [];
 
-for (let i = 1; i < arr.length; i++) {
-  result.push( new Subscribers(arr, arr[i]) );
-}
-
-for (let obj of result) {
-  let numA = obj['Номер A'];
-
-  if ( isCode(numA, 926935) ) {
-    //console.log( numA );
-    obj.userName = 'lexx';
-    console.log(obj);
-    console.log(obj.userName);
-  }
-
-  if ( isCode(numA, 916950) ) {
-    //console.log( numA );
-    obj.userName = 'pasha';
-    console.log(obj);
-    console.log(obj.userName);
-  }
-}
 
 //const users = new Subscribers(arr, arr[2]);
 
