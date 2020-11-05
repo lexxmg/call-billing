@@ -8,6 +8,10 @@ inputFile.addEventListener('change', () => {
   let reader = new FileReader();
   reader.readAsText(file);
 
+  reader.addEventListener('loadstart', () => {
+    console.log('чтение файла начато');
+  });
+
   reader.addEventListener('load', () => {
     //console.log(reader.result);
     let arr = strToArr(reader.result);
