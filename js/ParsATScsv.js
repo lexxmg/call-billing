@@ -1,5 +1,5 @@
 class ParsATScsv {
-  /** Парсер CSV 
+  /** Парсер CSV
    *
    *
    * this.array  Maссив всез звонков
@@ -11,9 +11,10 @@ class ParsATScsv {
   constructor(string) {
     this.array = this._stringToArray(string);
     this.allCalls = this._allCalls();
+    this.exception = [8495, 8499, 8496, 8800];
   }
 
-  get callIn(){
+  get callIn() {
     const arr = this.allCalls;
 
     return arr.filter(arr => {
@@ -21,11 +22,33 @@ class ParsATScsv {
     });
   }
 
-  get callOut(){
+  get callOut() {
     const arr = this.allCalls;
+    const exception = this.exception;
+
+    if (exception.length !== 0) {
+      return arr.filter(arr => {
+        if (arr['Напр.'] === '1') {
+          for (let pref of exception) {
+            if ( this._isCode(arr['Номер Б'], pref) ) {
+              return false;
+            }
+          }
+          return true;
+        }
+      });
+    } else {
+      return arr.filter(arr => {
+        return arr['Напр.'] === '1';
+      });
+    }
+  }
+
+  get test() {
+    const arr = this.callOut;
 
     return arr.filter(arr => {
-      return arr['Напр.'] === '1';
+      return arr['Входящая линия'].length > 5;
     });
   }
 
@@ -61,5 +84,12 @@ class ParsATScsv {
 
   _csvToArray(stringCsv) {
     return stringCsv.replaceAll('"', '').trim().split(';');
+  }
+
+  _isCode(num, code) {
+    const lengthCode = String(code).length;
+    const numCode = +String(num).substring(0, lengthCode);
+
+    return +code === numCode;
   }
 }
