@@ -2,6 +2,8 @@
 
 const inputFile = document.querySelector('.form__item');
 
+const ats = new ParsATScsv(strExample);
+
 inputFile.addEventListener('change', () => {
   const file = inputFile.files[0];
 
