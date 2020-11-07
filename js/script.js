@@ -14,8 +14,9 @@ inputFile.addEventListener('change', () => {
 
   reader.addEventListener('load', () => {
     const ats = new ParsATScsv(reader.result);
-    console.log(ats.callOut);
-    console.table(ats.callOut);
+    const callOut = ats.callOut;
+    console.log(callOut);
+    console.table(callOut);
   });
 
   reader.addEventListener('error', () => {
