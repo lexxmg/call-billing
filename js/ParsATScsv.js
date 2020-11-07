@@ -1,8 +1,10 @@
 class ParsATScsv {
   /** Парсер CSV
+   * "Дата";"Напр.";"Оператор";"Длит.";"Длит. (окр.)";"Номер A";"Номер Б";"Тариф";"Категория";"Входящая линия";"Исходящая линия";"Класс";"Причина";"Списание";"Валюта"
+   " 2016-07-01 07:12:53";"1";"";"00:00:13";"00:00:13";"3499523026";"84957950541";"Не определено";"Не определено";"A1730";"001000021";"Внутренняя связь";"16";"0,00";""
+   " 2016-07-01 08:04:49";"1";"";"00:00:51";"00:00:51";"9287692887";"84957950550";"Не определено";"Не определено";"A1729";"001000022";"Внутренняя связь";"16";"0,00";""
    *
-   *
-   * this.array  Maссив всез звонков
+   * this.array  Maссив всех звонков
    * this.allCalls Массив объектов всех звонков
    *
    *
@@ -28,7 +30,10 @@ class ParsATScsv {
 
     if (exception.length !== 0) {
       return arr.filter(arr => {
-        if (arr['Напр.'] === '1') {
+        const pcm1 = this._isCode(arr['Исходящая линия'], '001000');
+        const pcm2 = this._isCode(arr['Исходящая линия'], '001001');
+
+        if (pcm1 || pcm2) {
           for (let pref of exception) {
             if ( this._isCode(arr['Номер Б'], pref) ) {
               return false;
@@ -39,7 +44,10 @@ class ParsATScsv {
       });
     } else {
       return arr.filter(arr => {
-        return arr['Напр.'] === '1';
+        const pcm1 = this._isCode(arr['Исходящая линия'], '001000');
+        const pcm2 = this._isCode(arr['Исходящая линия'], '001001');
+
+        return pcm1 || pcm2;
       });
     }
   }
@@ -48,6 +56,7 @@ class ParsATScsv {
     const arr = this.callOut;
 
     return arr.filter(arr => {
+
       return arr['Входящая линия'].length > 5;
     });
   }
@@ -88,8 +97,15 @@ class ParsATScsv {
 
   _isCode(num, code) {
     const lengthCode = String(code).length;
-    const numCode = +String(num).substring(0, lengthCode);
+    const numCode = String(num).substring(0, lengthCode);
 
-    return +code === numCode;
+    return String(code) === numCode;
+  }
+
+  _strToSeconds(str) {
+    const arr = str.split(':');
+
+    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+    return (+arr[0]) * 60 * 60 + (+arr[1]) * 60 + (+arr[2]);
   }
 }
