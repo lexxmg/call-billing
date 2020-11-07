@@ -31,10 +31,11 @@ class ParsATScsv {
 
     if (exception.length !== 0) {
       return arr.filter(arr => {
-        const pcm1 = this._isCode(arr['Исходящая линия'], this.psm[0]);
-        const pcm2 = this._isCode(arr['Исходящая линия'], this.psm[1]);
+        // const pcm1 = this._isCode(arr['Исходящая линия'], this.psm[0]);
+        // const pcm2 = this._isCode(arr['Исходящая линия'], this.psm[1]);
+        const psmBull = this._psmOut(arr['Исходящая линия'], this.psm);
 
-        if (pcm1 || pcm2) {
+        if (psmBull) {
           for (let pref of exception) {
             if ( this._isCode(arr['Номер Б'], pref) ) {
               return false;
@@ -45,10 +46,11 @@ class ParsATScsv {
       });
     } else {
       return arr.filter(arr => {
-        const pcm1 = this._isCode(arr['Исходящая линия'], this.psm[0]);
-        const pcm2 = this._isCode(arr['Исходящая линия'], this.psm[1]);
+        // const pcm1 = this._isCode(arr['Исходящая линия'], this.psm[0]);
+        // const pcm2 = this._isCode(arr['Исходящая линия'], this.psm[1]);
+        const psmBull = this._psmOut(arr['Исходящая линия'], this.psm);
 
-        return pcm1 || pcm2;
+        return psmBull;
       });
     }
   }
@@ -108,5 +110,14 @@ class ParsATScsv {
 
     // minutes are worth 60 seconds. Hours are worth 60 minutes.
     return (+arr[0]) * 60 * 60 + (+arr[1]) * 60 + (+arr[2]);
+  }
+
+  _psmOut(outLine, psmArr) {
+    for (let psm of psmArr) {
+      if ( this._isCode(outLine, psm) ) {
+        return true;
+      }
+    }
+    return false;
   }
 }
