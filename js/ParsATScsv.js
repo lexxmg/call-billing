@@ -7,14 +7,14 @@ class ParsATScsv {
    * this.array  Maссив всех звонков
    * this.allCalls Массив объектов всех звонков
    * this.exception = [8495, 8499, 8496, 8800]  Исключение префексов, исключаются из оьъекта исходящеей связи
-   * this.psm = ['001000', '001001'] Исходящие потоки, по ним определяется исходящая связь
+   * this.pcm = ['001000', '001001'] Исходящие потоки, по ним определяется исходящая связь
    */
 
   constructor(string) {
     this.array = this._stringToArray(string);
     this.allCalls = this._allCalls();
     this.exception = [8495, 8499, 8496, 8800];
-    this.psm = ['001000', '001001'];
+    this.pcm = ['001000', '001001'];
   }
 
   get callIn() {
@@ -31,9 +31,9 @@ class ParsATScsv {
 
     if (exception.length !== 0) {
       return arr.filter(arr => {
-        const psmBull = this._psmOut(arr['Исходящая линия'], this.psm);
+        const pcmBull = this._pcmOut(arr['Исходящая линия'], this.pcm);
 
-        if (psmBull) {
+        if (pcmBull) {
           for (let pref of exception) {
             if ( this._isCode(arr['Номер Б'], pref) ) {
               return false;
@@ -44,9 +44,9 @@ class ParsATScsv {
       });
     } else {
       return arr.filter(arr => {
-        const psmBull = this._psmOut(arr['Исходящая линия'], this.psm);
+        const pcmBull = this._pcmOut(arr['Исходящая линия'], this.pcm);
 
-        return psmBull;
+        return pcmBull;
       });
     }
   }
@@ -108,9 +108,9 @@ class ParsATScsv {
     return (+arr[0]) * 60 * 60 + (+arr[1]) * 60 + (+arr[2]);
   }
 
-  _psmOut(outLine, psmArr) {
-    for (let psm of psmArr) {
-      if ( this._isCode(outLine, psm) ) {
+  _pcmOut(outLine, pcmArr) {
+    for (let pcm of pcmArr) {
+      if ( this._isCode(outLine, pcm) ) {
         return true;
       }
     }
