@@ -13,7 +13,7 @@ class ParsATScsv {
   constructor(string) {
     this.array = this._stringToArray(string);
     this.allCalls = this._allCalls();
-    this.exception = [8495, 8499, 8496, 8800];
+    this.exception = [495, 499, 496, 800];
     this.pcm = ['001000', '001001'];
   }
 
