@@ -39,6 +39,7 @@ class ParsATScsv {
               return false;
             }
           }
+          arr['Длит. (окр.)'] = String( this._strToSeconds(arr['Длит.']) );
           return true;
         }
       });
@@ -46,6 +47,10 @@ class ParsATScsv {
       return arr.filter(arr => {
         const pcmBull = this._pcmOut(arr['Исходящая линия'], this.pcm);
 
+        if (pcmBull) {
+          arr['Длит. (окр.)'] = String( this._strToSeconds(arr['Длит.']) );
+          return true;
+        }
         return pcmBull;
       });
     }
