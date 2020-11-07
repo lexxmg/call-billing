@@ -50,6 +50,33 @@ class ParsMNcsv {
       }
       obj.prefRegion = obj.prefRegion.split(',');
 
+      if (obj.prefRegion[0] !== '') {
+        for (let pref of obj.prefRegion) {
+          const res = [];
+          if (pref.search('-') !== -1) {
+            const result = [];
+            const arr = pref.split('-');
+            let num = arr[0];
+
+            for (let i = 0; i <= (arr[1] - arr[0]); i++) {
+              result.push(num++);
+            }
+
+            // const index = obj.prefRegion.indexOf(pref);
+            // console.log(index);
+            //console.log(obj.prefRegion);
+            obj.prefRegion.splice(obj.prefRegion.indexOf(pref), 1, result);
+            //console.log(obj.prefRegion);
+            //console.log(obj.prefRegion);
+            //console.log(result);
+            //console.log( obj.prefRegion.indexOf(pref) );
+          }
+        }
+        obj.prefRegion = [].concat.apply([], obj.prefRegion);
+        //console.log(obj.prefRegion);
+        //console.log(merged);
+      }
+
       result.push(obj);
     }
 
