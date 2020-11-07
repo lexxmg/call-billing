@@ -31,8 +31,6 @@ class ParsATScsv {
 
     if (exception.length !== 0) {
       return arr.filter(arr => {
-        // const pcm1 = this._isCode(arr['Исходящая линия'], this.psm[0]);
-        // const pcm2 = this._isCode(arr['Исходящая линия'], this.psm[1]);
         const psmBull = this._psmOut(arr['Исходящая линия'], this.psm);
 
         if (psmBull) {
@@ -46,8 +44,6 @@ class ParsATScsv {
       });
     } else {
       return arr.filter(arr => {
-        // const pcm1 = this._isCode(arr['Исходящая линия'], this.psm[0]);
-        // const pcm2 = this._isCode(arr['Исходящая линия'], this.psm[1]);
         const psmBull = this._psmOut(arr['Исходящая линия'], this.psm);
 
         return psmBull;
