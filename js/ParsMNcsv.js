@@ -52,7 +52,6 @@ class ParsMNcsv {
 
       if (obj.prefRegion[0] !== '') {
         for (let pref of obj.prefRegion) {
-          const res = [];
           if (pref.search('-') !== -1) {
             const result = [];
             const arr = pref.split('-');
@@ -62,19 +61,11 @@ class ParsMNcsv {
               result.push(num++);
             }
 
-            // const index = obj.prefRegion.indexOf(pref);
-            // console.log(index);
-            //console.log(obj.prefRegion);
             obj.prefRegion.splice(obj.prefRegion.indexOf(pref), 1, result);
-            //console.log(obj.prefRegion);
-            //console.log(obj.prefRegion);
-            //console.log(result);
-            //console.log( obj.prefRegion.indexOf(pref) );
           }
         }
-        obj.prefRegion = [].concat.apply([], obj.prefRegion);
-        //console.log(obj.prefRegion);
-        //console.log(merged);
+        //obj.prefRegion = [].concat.apply([], obj.prefRegion);
+        obj.prefRegion = obj.prefRegion.flat();
       }
 
       result.push(obj);

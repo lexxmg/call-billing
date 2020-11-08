@@ -76,6 +76,7 @@ class ParsATScsv {
       const obj = {};
       for (let i = 0; i < arr.length; i++) {
         obj[arrNames[i]] = arr[i];
+        obj['Абонент'] = '';
       }
 
       result.push(obj);

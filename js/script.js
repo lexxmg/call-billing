@@ -2,7 +2,7 @@
 
 const inputFile = document.querySelector('.form__item');
 
-
+const abonents = new ParsAbonCsv(abonCsv);
 const mn = new ParsMNcsv(strMN);
 const result = [];
 
@@ -26,6 +26,12 @@ inputFile.addEventListener('change', () => {
           obj['Оператор'] = pref.nameCountry;
           obj['Тариф'] = pref.cost;
           obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat(pref.cost.replace(',', '.') );
+        }
+      }
+
+      for (let abon of abonents.abonents) {
+        if ( isCode(obj['Номер A'], abon.phoneNumber) ) {
+          obj['Абонент'] = abon.bonentName;
         }
       }
     }
