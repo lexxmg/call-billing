@@ -77,7 +77,7 @@ inputFile.addEventListener('change', () => {
       }
       table.append(createTables(obj));
     }
-    console.log(callOut);
+    //console.log(callOut);
     //console.table(callOut);
 
   });

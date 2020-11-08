@@ -1,7 +1,11 @@
 .table {
+  min-width: 1810px;
+
   border: 1px solid #000;
 
   border-collapse: collapse;
+
+  font-size: 15px;
 }
 
 .table__head {
