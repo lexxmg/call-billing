@@ -1,6 +1,7 @@
 'use strict';
 
 const inputFile = document.querySelector('.form__item');
+const table = document.querySelector('.table__body');
 
 const abonents = new ParsAbonCsv(abonCsv);
 const mn = new ParsMNcsv(strMN);
@@ -74,9 +75,11 @@ inputFile.addEventListener('change', () => {
           }
         }
       }
+      table.append(createTables(obj));
     }
     console.log(callOut);
-    console.table(callOut);
+    //console.table(callOut);
+
   });
 
   reader.addEventListener('error', () => {
@@ -89,4 +92,29 @@ function isCode(num, code) {
   const numCode = String(num).substring(0, lengthCode);
 
   return String(code) === numCode;
+}
+
+function createTables(obj) {
+  const tr = document.createElement('tr');
+  tr.className = 'table__row';
+
+  tr.innerHTML = `
+    <td class="table__data">${obj['Дата']}</td>
+    <td class="table__data">${obj['Абонент']}</td>
+    <td class="table__data">${obj['Напр.']}</td>
+    <td class="table__data">${obj['Оператор']}</td>
+    <td class="table__data">${obj['Длит.']}</td>
+    <td class="table__data">${obj['Длит. (окр.)']}</td>
+    <td class="table__data">${obj['Номер A']}</td>
+    <td class="table__data">${obj['Номер Б']}</td>
+    <td class="table__data">${obj['Тариф']}</td>
+    <td class="table__data">${obj['Категория']}</td>
+    <td class="table__data">${obj['Входящая линия']}</td>
+    <td class="table__data">${obj['Исходящая линия']}</td>
+    <td class="table__data">${obj['Класс']}</td>
+    <td class="table__data">${obj['Причина']}</td>
+    <td class="table__data">${obj['Списание']}</td>
+  `;
+
+  return tr;
 }
