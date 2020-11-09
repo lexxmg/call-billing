@@ -76,11 +76,15 @@ inputFile.addEventListener('change', () => {
 function check() {
   if (phonecallsData && subscriberData && mnData && abc3Data && abc4Data && abc8Data && abc9Data) {
     console.log('Все файли загружены');
+
+    document.querySelector('.input-container').classList.add('hidden');
+
     // console.log(phonecallsData);
     // console.log(mnData);
 
-    pars(phonecallsData, subscriberData, mnData, abc3Data, abc4Data, abc8Data, abc9Data);
-    //readeFile(phonecallsData);
+    setTimeout(() => {
+      pars(phonecallsData, subscriberData, mnData, abc3Data, abc4Data, abc8Data, abc9Data);
+    }, 100);
   }
 }
 
@@ -168,7 +172,7 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   console.log('докумнт свормирован можно скачивать');
   document.querySelector('.table').classList.remove('hidden');
   link.classList.remove('hidden');
-  document.querySelector('.input-container').classList.add('hidden');
+
   const csv = arrObjtoCSV(callOut);
 
   const blob = new Blob(["\ufeff", csv]);
