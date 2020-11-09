@@ -2,6 +2,9 @@
 
 const inputFile = document.querySelector('.form__item');
 const table = document.querySelector('.table__body');
+const link = document.querySelector('.link');
+
+
 
 const abonents = new ParsAbonCsv(abonCsv);
 const mn = new ParsMNcsv(strMN);
@@ -79,7 +82,14 @@ inputFile.addEventListener('change', () => {
     }
     //console.log(callOut);
     //console.table(callOut);
+    console.log('докумнт свормирован можно скачивать');
+    document.querySelector('.table').classList.remove('hidden');
+    const csv = arrObjtoCSV(callOut);
 
+    const blob = new Blob(["\ufeff", csv]);
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.download = "data.csv";
   });
 
   reader.addEventListener('error', () => {
@@ -117,4 +127,48 @@ function createTables(obj) {
   `;
 
   return tr;
+}
+
+function arrObjtoCSV(arrObj) {
+  const title = 'Дата' + ';' +
+          'Абонент' + ';' +
+          'Напр' + ';' +
+          'Оператор' + ';' +
+          'Длит.' + ';' +
+          'Длит. Сек.' + ';' +
+          'Номер А' + ';' +
+          'Номер Б' + ';' +
+          'Тариф' + ';' +
+          'Категория' + ';' +
+          'Входящая линия' + ';' +
+          'Исходящая линия' + ';' +
+          'Класс' + ';' +
+          'Причина' + ';' +
+          'Списание' + '\n';
+  let string = '';
+  string += title;
+
+  for (let obj of arrObj) {
+    let data = '';
+
+    data = obj['Дата'] + ';' +
+          obj['Абонент'] + ';' +
+          obj['Напр.'] + ';' +
+          obj['Оператор'] + ';' +
+          obj['Длит.'] + ';' +
+          obj['Длит. (окр.)'] + ';' +
+          obj['Номер A'] + ';' +
+          obj['Номер Б'] + ';' +
+          obj['Тариф'] + ';' +
+          obj['Категория'] + ';' +
+          obj['Входящая линия'] + ';' +
+          obj['Исходящая линия'] + ';' +
+          obj['Класс'] + ';' +
+          obj['Причина'] + ';' +
+          obj['Списание']  + '\n';
+
+    string += data;
+  }
+
+  return string;
 }
