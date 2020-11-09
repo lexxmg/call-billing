@@ -6,9 +6,29 @@
 
   overflow: hidden;
 
-  background-color: green;
+  background-color: #ff9f9f9;
 }
 
 .main {
+  display: flex;
+  align-items: center;
   flex: 1 1 100%;
+}
+
+.main__row {
+  width: 100%;
+}
+
+.link {
+  display: block;
+
+  width: 100%;
+
+  padding: 10px 0;
+
+  background-color: blue;
+
+  text-align: center;
+
+  color: #fff;
 }

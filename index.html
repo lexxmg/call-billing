@@ -24,9 +24,51 @@
   <body>
     <div class="wrapper">
       <div class="main">
-        <div class="input">
-          <input class="input__item" id="input" type="file" accept=".csv" multiple>
-          <label for="input" class="input__label">Вставить</label>
+        <div class="main__row">
+          <div class="input-container">
+            <div class="input-container__input input">
+              <input class="input__item visually-hidden" id="input" type="file" accept=".csv" multiple>
+              <label for="input" class="input__label">Вставить</label>
+            </div>
+
+            <ul class="input-container__list list">
+              <li class="list__item">phonecallsdata.csv</li>
+              <li class="list__item">MN.csv</li>
+              <li class="list__item">subscriber.csv</li>
+              <li class="list__item">ABC-3xx.csv</li>
+              <li class="list__item">ABC-4xx.csv</li>
+              <li class="list__item">ABC-8xx.csv</li>
+              <li class="list__item">DEF-9xx.csv</li>
+            </ul>
+          </div>
+
+          <div class="tadle-container">
+            <a href="" class="link hidden">Загрузить файл CSV</a>
+
+            <table class="table hidden">
+              <thead class="table__head">
+                <th class="table__title">Дата</th>
+                <th class="table__title">Абонент</th>
+                <th class="table__title">Напр.</th>
+                <th class="table__title">Оператор</th>
+                <th class="table__title">Длит.</th>
+                <th class="table__title">Длит. сек.</th>
+                <th class="table__title">Номер А</th>
+                <th class="table__title">Номер Б</th>
+                <th class="table__title">Тариф</th>
+                <th class="table__title">Категоря</th>
+                <th class="table__title">Иходящая линия</th>
+                <th class="table__title">Исходящая линия</th>
+                <th class="table__title">Класс</th>
+                <th class="table__title">Причина</th>
+                <th class="table__title">Списание</th>
+              </thead>
+
+              <tbody class="table__body">
+                <tr class="table__row"></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -36,31 +78,5 @@
         </div>
       </footer>
     </div>
-
-    <a href="" class="link">скачатьы</a>
-
-    <table class="table hidden">
-      <thead class="table__head">
-        <th class="table__title">Дата</th>
-        <th class="table__title">Абонент</th>
-        <th class="table__title">Напр.</th>
-        <th class="table__title">Оператор</th>
-        <th class="table__title">Длит.</th>
-        <th class="table__title">Длит. сек.</th>
-        <th class="table__title">Номер А</th>
-        <th class="table__title">Номер Б</th>
-        <th class="table__title">Тариф</th>
-        <th class="table__title">Категоря</th>
-        <th class="table__title">Иходящая линия</th>
-        <th class="table__title">Исходящая линия</th>
-        <th class="table__title">Класс</th>
-        <th class="table__title">Причина</th>
-        <th class="table__title">Списание</th>
-      </thead>
-
-      <tbody class="table__body">
-        <tr class="table__row"></tr>
-      </tbody>
-    </table>
   </body>
 </html>

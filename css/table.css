@@ -1,11 +1,17 @@
+.tadle-container {
+  flex: 1 1 100%;
+}
+
 .table {
   min-width: 1810px;
+
+  margin: 0 auto;
 
   border: 1px solid #000;
 
   border-collapse: collapse;
 
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .table__head {

@@ -3,6 +3,7 @@
 const inputFile = document.querySelector('.input__item');
 const table = document.querySelector('.table__body');
 const link = document.querySelector('.link');
+const listItem = document.querySelectorAll('.list__item');
 
 let subscriberData;
 let phonecallsData;
@@ -20,42 +21,49 @@ inputFile.addEventListener('change', () => {
       readeFile(elem, data => {
         phonecallsData = data;
         console.log('callBack phpnecall');
+        listItem[0].classList.add('list__item--active');
         check();
       });
     } else if (elem.name === 'MN.csv' && !mnData) {
       readeFile(elem, data => {
         mnData = data;
         console.log('callBack MN');
+        listItem[1].classList.add('list__item--active');
         check();
       });
     }else if (elem.name === 'subscriber.csv' && !subscriberData) {
       readeFile(elem, data => {
         subscriberData = data;
         console.log('callBack subscriber');
+        listItem[2].classList.add('list__item--active');
         check();
       });
     } else if (elem.name === 'ABC-3xx.csv' && !abc3Data) {
       readeFile(elem, data => {
         abc3Data = data;
         console.log('callBack ABC-3');
+        listItem[3].classList.add('list__item--active');
         check();
       });
     } else if (elem.name === 'ABC-4xx.csv' && !abc4Data) {
       readeFile(elem, data => {
         abc4Data = data;
         console.log('callBack ABC-4');
+        listItem[4].classList.add('list__item--active');
         check();
       });
     } else if (elem.name === 'ABC-8xx.csv' && !abc8Data) {
       readeFile(elem, data => {
         abc8Data = data;
         console.log('callBack ABC-8');
+        listItem[5].classList.add('list__item--active');
         check();
       });
     } else if (elem.name === 'DEF-9xx.csv' && !abc9Data) {
       readeFile(elem, data => {
         abc9Data = data;
         console.log('callBack ABC-9');
+        listItem[6].classList.add('list__item--active');
         check();
       });
     } else {
@@ -159,6 +167,8 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   //console.table(callOut);
   console.log('докумнт свормирован можно скачивать');
   document.querySelector('.table').classList.remove('hidden');
+  link.classList.remove('hidden');
+  document.querySelector('.input-container').classList.add('hidden');
   const csv = arrObjtoCSV(callOut);
 
   const blob = new Blob(["\ufeff", csv]);
