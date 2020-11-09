@@ -78,6 +78,7 @@ function check() {
     console.log('Все файли загружены');
 
     document.querySelector('.input-container').classList.add('hidden');
+    document.querySelector('.background').classList.remove('hidden');
 
     // console.log(phonecallsData);
     // console.log(mnData);
@@ -170,6 +171,7 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   //console.log(callOut);
   //console.table(callOut);
   console.log('докумнт свормирован можно скачивать');
+  document.querySelector('.background').classList.add('hidden');
   document.querySelector('.table').classList.remove('hidden');
   link.classList.remove('hidden');
 
