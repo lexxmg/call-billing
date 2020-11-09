@@ -1,6 +1,6 @@
 'use strict';
 
-const inputFile = document.querySelector('.form__item');
+const inputFile = document.querySelector('.input__item');
 const table = document.querySelector('.table__body');
 const link = document.querySelector('.link');
 

@@ -1,0 +1,22 @@
+.footer {
+
+}
+
+.footer__bar {
+  display: flex;
+  justify-content: center;
+
+  background-color: blue;
+
+  text-align: center;
+}
+
+.footer__text {
+  display: block;
+
+  padding: 10px 0;
+
+  font-size: 11px;
+
+  color: #fff;
+}

@@ -7,15 +7,13 @@
 
     <title>call-billing</title>
 
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/input.css">
+    <link rel="stylesheet" href="css/footer.css">
 
-    <!-- <script src="js/strExample.js" defer></script> -->
-    <!-- <script src="js/abc3.js" defer></script>
-    <script src="js/abc4.js" defer></script>
-    <script src="js/abc8.js" defer></script>
-    <script src="js/abc9.js" defer></script> -->
-    <!-- <script src="js/mn.js" defer></script> -->
-    <!-- <script src="js/abonCsv.js" defer></script> -->
     <script src="js/ParsABC.js" defer></script>
     <script src="js/ParsATScsv.js" defer></script>
     <script src="js/ParsMNcsv.js" defer></script>
@@ -24,9 +22,20 @@
   </head>
 
   <body>
-    <form class="form" action="" method="post">
-      <input class="form__item" type="file" accept=".csv" multiple>
-    </form>
+    <div class="wrapper">
+      <div class="main">
+        <div class="input">
+          <input class="input__item" id="input" type="file" accept=".csv" multiple>
+          <label for="input" class="input__label">Вставить</label>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="footer__bar">
+          <span class="footer__text">&copy;lexxmg</span>
+        </div>
+      </footer>
+    </div>
 
     <a href="" class="link">скачатьы</a>
 

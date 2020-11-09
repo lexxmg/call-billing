@@ -1,0 +1,83 @@
+/*============================================================*/
+
+html {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  width: 100%;
+  min-width: 320px;
+  height: 100%;
+                 /* box-model */
+  margin: 0;
+
+  background-color: #f9f9f9;       /* Визаулизация */
+
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;   /* Типография */
+  font-size: 16px;
+  line-height: 1.429;
+  color: black;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+h1, h2, h3, p, figure {
+  padding: 0;
+  margin: 0;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.fixed-container {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.darkened::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.25));
+}
+
+/*============================================================*/
