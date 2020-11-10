@@ -30,8 +30,16 @@
 
 }
 
+.table__row th {
+  padding: 3px 5px;
+
+  border: 1px solid #000;
+
+  background-color: #a49f9f;
+}
+
 .table__row:nth-child(2n) {
-  background-color: #f9f9f9;
+  background-color: #e9e3e3;
 }
 
 .table__data {
