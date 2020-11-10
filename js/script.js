@@ -120,6 +120,7 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
       if ( isCode(obj['Номер Б'], pref.combine) ) {
         obj['Оператор'] = pref.nameCountry;
         obj['Тариф'] = pref.cost;
+        obj['Категория'] = 'МН';
         obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat(pref.cost.replace(',', '.') );
       }
     }
@@ -134,6 +135,7 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
       for (let objABC of abc3.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+          obj['Категория'] = 'МГ';
           break;
         }
       }
@@ -143,6 +145,7 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
       for (let objABC of abc4.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+          obj['Категория'] = 'МГ';
           break;
         }
       }
@@ -152,6 +155,7 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
       for (let objABC of abc8.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+          obj['Категория'] = 'МГ';
           break;
         }
       }
@@ -161,6 +165,7 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
       for (let objABC of abc9.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+          obj['Категория'] = 'Сотовые';
           break;
         }
       }
