@@ -184,8 +184,9 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
 
   const blob = new Blob(["\ufeff", csv]);
   const url = URL.createObjectURL(blob);
+  const dat = date();
   link.href = url;
-  link.download = "data.csv";
+  link.download = 'billing-data_' + dat + '.csv';
 }
 
 function isCode(num, code) {
@@ -262,4 +263,15 @@ function arrObjtoCSV(arrObj) {
   }
 
   return string;
+}
+
+function date() {
+  const date = new Date();
+  let result = '';
+
+  result += date.getDate() + '-';
+  result += (date.getMonth() + 1) + '-';
+  result += date.getFullYear();
+
+  return result;
 }
