@@ -4,7 +4,7 @@
 
   min-height: 100%;
 
-  overflow: hidden;
+  /* overflow: hidden; */
 
   background-color: #ff9f9f9;
 }
@@ -20,11 +20,16 @@
 }
 
 .link {
+  position: relative;
+
   display: block;
 
   width: 100%;
+  min-width: 1810px;
 
   padding: 10px 0;
+
+  border: 1px solid blue;
 
   background-color: blue;
 
@@ -33,4 +38,39 @@
   color: #fff;
 
   cursor: pointer;
+}
+
+.link__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: block;
+
+  width: 0;
+
+  overflow: hidden;
+
+  transition: width 0.5s linear;
+}
+
+.link__text {
+  display: block;
+
+  width: 100vw;
+  min-width: 1810px;
+
+  padding: 10px 0;
+
+  background-color: #fff;
+
+  color: blue;
+
+  text-align: center;
+}
+
+.link:hover .link__inner {
+  width: 100%;
+
+  transition: all 0.5s linear;
 }
