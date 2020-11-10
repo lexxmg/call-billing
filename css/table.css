@@ -36,6 +36,8 @@
   border: 1px solid #000;
 
   background-color: #a49f9f;
+
+  cursor: pointer;
 }
 
 .table__row:nth-child(2n) {
@@ -50,4 +52,23 @@
 
 .hidden {
   display: none;
+}
+
+th.sorted[data-order="1"],
+th.sorted[data-order="-1"] {
+    position: relative;
+}
+
+th.sorted[data-order="1"]::after,
+th.sorted[data-order="-1"]::after {
+    right: 8px;
+    position: absolute;
+}
+
+th.sorted[data-order="-1"]::after {
+	content: "▼"
+}
+
+th.sorted[data-order="1"]::after {
+	content: "▲"
 }
