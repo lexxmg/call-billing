@@ -83,6 +83,7 @@ function check() {
     // console.log(mnData);
 
     setTimeout(() => {
+      console.time('time1');
       pars(phonecallsData, subscriberData, mnData, abc3Data, abc4Data, abc8Data, abc9Data);
     }, 3000);
   }
@@ -115,19 +116,26 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const abc9 = new ParsABC(abc9x);
   const callOut = ats.callOut;
 
-  for (let obj of callOut) {
-    for (let pref of mn.mn) {
-      if ( isCode(obj['Номер Б'], pref.combine) ) {
-        obj['Оператор'] = pref.nameCountry;
-        obj['Тариф'] = pref.cost;
-        obj['Категория'] = 'МН';
-        obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat(pref.cost.replace(',', '.') );
-      }
-    }
-
+start: for (let obj of callOut) {
     for (let abon of subscriber.abonents) {
       if ( isCode(obj['Номер A'], abon.phoneNumber) ) {
         obj['Абонент'] = abon.bonentName;
+        break;
+      }
+    }
+
+    // if (obj['Абонент'] === '') {
+    //   continue start;
+    // }
+
+    if ( isCode(obj['Номер Б'], 9) ) {
+      for (let objABC of abc9.objPref) {
+        if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
+          obj['Оператор'] = objABC.RegionName;
+          obj['Категория'] = 'Сотовые';
+          table.append(createTables(obj));
+          continue start;
+        }
       }
     }
 
@@ -136,17 +144,8 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
           obj['Категория'] = 'МГ';
-          break;
-        }
-      }
-    }
-
-    if ( isCode(obj['Номер Б'], 4) ) {
-      for (let objABC of abc4.objPref) {
-        if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
-          obj['Оператор'] = objABC.RegionName;
-          obj['Категория'] = 'МГ';
-          break;
+          table.append(createTables(obj));
+          continue start;
         }
       }
     }
@@ -156,24 +155,40 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
           obj['Категория'] = 'МГ';
-          break;
+          table.append(createTables(obj));
+          continue start;
         }
       }
     }
 
-    if ( isCode(obj['Номер Б'], 9) ) {
-      for (let objABC of abc9.objPref) {
+    if ( isCode(obj['Номер Б'], 4) ) {
+      for (let objABC of abc4.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
-          obj['Категория'] = 'Сотовые';
-          break;
+          obj['Категория'] = 'МГ';
+          table.append(createTables(obj));
+          continue start;
         }
       }
     }
+
+    for (let pref of mn.mn) {
+      if ( isCode(obj['Номер Б'], pref.combine) ) {
+        obj['Оператор'] = pref.nameCountry;
+        obj['Тариф'] = pref.cost;
+        obj['Категория'] = 'МН';
+        obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat(pref.cost.replace(',', '.') );
+        table.append(createTables(obj));
+        continue start;
+      }
+    }
+
     table.append(createTables(obj));
   }
   //console.log(callOut);
   //console.table(callOut);
+  console.timeEnd('time1');
+
   console.log('докумнт свормирован можно скачивать');
   document.querySelector('.input-container').classList.add('hidden');
   document.querySelector('.background').classList.add('hidden');
