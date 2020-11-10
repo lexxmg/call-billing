@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/table.css">
     <link rel="stylesheet" href="css/input.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/popup.css">
 
     <script src="js/ParsABC.js" defer></script>
     <script src="js/ParsATScsv.js" defer></script>
@@ -42,10 +43,10 @@
             </ul>
           </div>
 
-          <div class="tadle-container">
-            <a href="" class="link hidden">Загрузить файл CSV</a>
+          <div class="tadle-container hidden">
+            <a href="" class="link">Загрузить файл CSV</a>
 
-            <table class="table hidden">
+            <table class="table">
               <thead class="table__head">
                 <th class="table__title">Дата</th>
                 <th class="table__title">Абонент</th>
@@ -78,7 +79,9 @@
         </div>
       </footer>
 
-      <div class="background hidden"></div>
+      <div class="background hidden">
+        <div class="background__content"></div>
+      </div>
     </div>
   </body>
 </html>

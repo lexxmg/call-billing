@@ -31,19 +31,6 @@
   text-align: center;
 
   color: #fff;
-}
 
-.background {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
-
-  background: url(../img/tumblr_7d9acabbfa7cb4e97d528df8ed2fb09a_895edf3b_500.gif) 0 50% no-repeat;
-  background-size: cover;
-  /* background-color: rgb(0, 0, 0, .8); */
-
-  opacity: .7;
+  cursor: pointer;
 }

@@ -77,7 +77,6 @@ function check() {
   if (phonecallsData && subscriberData && mnData && abc3Data && abc4Data && abc8Data && abc9Data) {
     console.log('Все файли загружены');
 
-    document.querySelector('.input-container').classList.add('hidden');
     document.querySelector('.background').classList.remove('hidden');
 
     // console.log(phonecallsData);
@@ -85,7 +84,7 @@ function check() {
 
     setTimeout(() => {
       pars(phonecallsData, subscriberData, mnData, abc3Data, abc4Data, abc8Data, abc9Data);
-    }, 100);
+    }, 3000);
   }
 }
 
@@ -171,9 +170,10 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   //console.log(callOut);
   //console.table(callOut);
   console.log('докумнт свормирован можно скачивать');
+  document.querySelector('.input-container').classList.add('hidden');
   document.querySelector('.background').classList.add('hidden');
-  document.querySelector('.table').classList.remove('hidden');
-  link.classList.remove('hidden');
+  document.querySelector('.tadle-container').classList.remove('hidden');
+  //link.classList.remove('hidden');
 
   const csv = arrObjtoCSV(callOut);
 
