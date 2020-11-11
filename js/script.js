@@ -143,51 +143,79 @@ start: for (let obj of callOut) {
 
     if ( isCode(obj['Номер Б'], 9) ) {
       for (let objABC of abc9.objPref) {
-        if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
-          obj['Оператор'] = objABC.RegionName;
-          obj['Класс'] = objABC.prov;
+        if ( isCode(obj['Номер Б'], objABC.abc) ) {
+          if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
+            obj['Оператор'] = objABC.RegionName;
+            obj['Класс'] = objABC.prov;
 
-          if (objABC.cost) {
-            obj['Тариф'] = String(objABC.cost);
-          } else {
-            obj['Тариф'] = '0';
+            if (objABC.cost) {
+              obj['Тариф'] = String(objABC.cost);
+            } else {
+              obj['Тариф'] = '0';
+            }
+
+            obj['Категория'] = 'Сотовые';
+            obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
+            table.append(createTables(obj));
+            result.push(obj);
+            continue start;
           }
-
-          obj['Категория'] = 'Сотовые';
-          obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
-          table.append(createTables(obj));
-          result.push(obj);
-          continue start;
         }
       }
     }
 
     if ( isCode(obj['Номер Б'], 3) ) {
       for (let objABC of abc3.objPref) {
-        if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
-          obj['Оператор'] = objABC.RegionName;
-          obj['Класс'] = objABC.prov;
+        if ( isCode(obj['Номер Б'], objABC.abc) ) {
+          if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
+            obj['Оператор'] = objABC.RegionName;
+            obj['Класс'] = objABC.prov;
 
-            if (objABC.cost) {
-              obj['Тариф'] = String(objABC.cost);
-            } else {
-              obj['Тариф'] = '0';
-            }
+              if (objABC.cost) {
+                obj['Тариф'] = String(objABC.cost);
+              } else {
+                obj['Тариф'] = '0';
+              }
 
-          obj['Категория'] = 'МГ';
-          obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
-          table.append(createTables(obj));
-          result.push(obj);
-          continue start;
+            obj['Категория'] = 'МГ';
+            obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
+            table.append(createTables(obj));
+            result.push(obj);
+            continue start;
+          }
         }
       }
     }
 
     if ( isCode(obj['Номер Б'], 8) ) {
       for (let objABC of abc8.objPref) {
-        if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
-          obj['Оператор'] = objABC.RegionName;
-          obj['Класс'] = objABC.prov;
+        if ( isCode(obj['Номер Б'], objABC.abc) ) {
+          if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
+            obj['Оператор'] = objABC.RegionName;
+            obj['Класс'] = objABC.prov;
+
+              if (objABC.cost) {
+                obj['Тариф'] = String(objABC.cost);
+              } else {
+                obj['Тариф'] = '0';
+              }
+
+            obj['Категория'] = 'МГ';
+            obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
+            table.append(createTables(obj));
+            result.push(obj);
+            continue start;
+          }
+        }
+      }
+    }
+
+    if ( isCode(obj['Номер Б'], 4) ) {
+      for (let objABC of abc4.objPref) {
+        if ( isCode(obj['Номер Б'], objABC.abc) ) {
+          if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
+            obj['Оператор'] = objABC.RegionName;
+            obj['Класс'] = objABC.prov;
 
             if (objABC.cost) {
               obj['Тариф'] = String(objABC.cost);
@@ -195,32 +223,12 @@ start: for (let obj of callOut) {
               obj['Тариф'] = '0';
             }
 
-          obj['Категория'] = 'МГ';
-          obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
-          table.append(createTables(obj));
-          result.push(obj);
-          continue start;
-        }
-      }
-    }
-
-    if ( isCode(obj['Номер Б'], 4) ) {
-      for (let objABC of abc4.objPref) {
-        if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
-          obj['Оператор'] = objABC.RegionName;
-          obj['Класс'] = objABC.prov;
-
-          if (objABC.cost) {
-            obj['Тариф'] = String(objABC.cost);
-          } else {
-            obj['Тариф'] = '0';
+            obj['Категория'] = 'МГ';
+            obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
+            table.append(createTables(obj));
+            result.push(obj);
+            continue start;
           }
-
-          obj['Категория'] = 'МГ';
-          obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
-          table.append(createTables(obj));
-          result.push(obj);
-          continue start;
         }
       }
     }

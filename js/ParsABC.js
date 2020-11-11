@@ -32,6 +32,34 @@ class ParsABC {
         obj[arrNames[i]] = arr[i];
       }
 
+      if ( String(obj.start).length < 7 ) {
+        const str = String(obj.start);
+        const strLength = String(obj.start).length;
+        const countZero = 7 - strLength;
+
+        let arr = str.split('');
+
+        for (let i = 0; i < countZero; i++) {
+          arr.unshift('0');
+        }
+
+        obj.start = arr.join('');
+      }
+
+      if ( String(obj.end).length < 7 ) {
+        const str = String(obj.end);
+        const strLength = String(obj.end).length;
+        const countZero = 7 - strLength;
+
+        let arr = str.split('');
+
+        for (let i = 0; i < countZero; i++) {
+          arr.unshift('0');
+        }
+
+        obj.end = arr.join('');
+      }
+
       result.push(obj);
     }
 
