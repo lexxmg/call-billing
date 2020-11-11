@@ -125,8 +125,8 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const result = [];
 
 start: for (let obj of callOut) {
-    if ( +obj['Причина'] !== 16) continue; // Оnбросить всё что не 16
-    if ( obj['Длит. (окр.)'] === '0' ) continue; //Отбросить нулевую длительность
+    if ( +obj['Причина'] !== 16 && +obj['Причина'] !== 17) continue; // Оnбросить всё что не 16
+    //if ( obj['Длит. (окр.)'] === '0' ) continue; //Отбросить нулевую длительность
 
     for (let abon of subscriber.abonents) {
       if ( isCode(obj['Номер A'], abon.phoneNumber) ) {
@@ -141,6 +141,7 @@ start: for (let obj of callOut) {
       for (let objABC of abc9.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+          obj['Класс'] = objABC.prov;
 
           if (objABC.cost) {
             obj['Тариф'] = String(objABC.cost);
@@ -161,6 +162,7 @@ start: for (let obj of callOut) {
       for (let objABC of abc3.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+          obj['Класс'] = objABC.prov;
 
             if (objABC.cost) {
               obj['Тариф'] = String(objABC.cost);
@@ -181,6 +183,7 @@ start: for (let obj of callOut) {
       for (let objABC of abc8.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+          obj['Класс'] = objABC.prov;
 
             if (objABC.cost) {
               obj['Тариф'] = String(objABC.cost);
@@ -201,6 +204,7 @@ start: for (let obj of callOut) {
       for (let objABC of abc4.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+          obj['Класс'] = objABC.prov;
 
           if (objABC.cost) {
             obj['Тариф'] = String(objABC.cost);
