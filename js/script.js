@@ -126,6 +126,7 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
 
 start: for (let obj of callOut) {
     if ( +obj['Причина'] !== 16) continue; // Оnбросить всё что не 16
+    if ( obj['Длит. (окр.)'] === '0' ) continue; //Отбросить нулевую длительность
 
     for (let abon of subscriber.abonents) {
       if ( isCode(obj['Номер A'], abon.phoneNumber) ) {
@@ -251,6 +252,7 @@ start: for (let obj of callOut) {
   link.download = 'billing-data_' + dat + '.csv';
 
   console.log( minutesCount(result) );
+  console.log(result.length);
 }
 
 function isCode(num, code) {
