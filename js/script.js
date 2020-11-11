@@ -74,7 +74,7 @@ inputFile.addEventListener('change', () => {
         check();
       });
     } else {
-      alert('недопустимое имя выйла');
+      alert('недопустимое имя файла');
     }
   }
 
