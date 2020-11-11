@@ -20,7 +20,7 @@ class ParsABC {
   }
 
   _objPref() {
-    const arrNames = ['abc', 'start', 'end', 'count', 'prov', 'RegionName'];
+    const arrNames = ['abc', 'start', 'end', 'count', 'prov', 'RegionName', 'cost'];
     const array = this.array;
     const result = [];
 

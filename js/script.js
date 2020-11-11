@@ -122,8 +122,11 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const abc8 = new ParsABC(abc8x);
   const abc9 = new ParsABC(abc9x);
   const callOut = ats.callOut;
+  const result = [];
 
 start: for (let obj of callOut) {
+    if ( +obj['Причина'] !== 16) continue; // Оnбросить всё что не 16
+
     for (let abon of subscriber.abonents) {
       if ( isCode(obj['Номер A'], abon.phoneNumber) ) {
         obj['Абонент'] = abon.bonentName;
@@ -131,16 +134,23 @@ start: for (let obj of callOut) {
       }
     }
 
-    // if (obj['Абонент'] === '') {
-    //   continue start;
-    // }
+    if (obj['Абонент'] === '') continue start; // Отбросить всех кто не в базе наших номеров
 
     if ( isCode(obj['Номер Б'], 9) ) {
       for (let objABC of abc9.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+
+          if (objABC.cost) {
+            obj['Тариф'] = String(objABC.cost);
+          } else {
+            obj['Тариф'] = '0';
+          }
+
           obj['Категория'] = 'Сотовые';
+          obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
           table.append(createTables(obj));
+          result.push(obj);
           continue start;
         }
       }
@@ -150,8 +160,17 @@ start: for (let obj of callOut) {
       for (let objABC of abc3.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+
+            if (objABC.cost) {
+              obj['Тариф'] = String(objABC.cost);
+            } else {
+              obj['Тариф'] = '0';
+            }
+
           obj['Категория'] = 'МГ';
+          obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
           table.append(createTables(obj));
+          result.push(obj);
           continue start;
         }
       }
@@ -161,8 +180,17 @@ start: for (let obj of callOut) {
       for (let objABC of abc8.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+
+            if (objABC.cost) {
+              obj['Тариф'] = String(objABC.cost);
+            } else {
+              obj['Тариф'] = '0';
+            }
+
           obj['Категория'] = 'МГ';
+          obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
           table.append(createTables(obj));
+          result.push(obj);
           continue start;
         }
       }
@@ -172,8 +200,17 @@ start: for (let obj of callOut) {
       for (let objABC of abc4.objPref) {
         if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
           obj['Оператор'] = objABC.RegionName;
+
+          if (objABC.cost) {
+            obj['Тариф'] = String(objABC.cost);
+          } else {
+            obj['Тариф'] = '0';
+          }
+
           obj['Категория'] = 'МГ';
+          obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
           table.append(createTables(obj));
+          result.push(obj);
           continue start;
         }
       }
@@ -182,15 +219,17 @@ start: for (let obj of callOut) {
     for (let pref of mn.mn) {
       if ( isCode(obj['Номер Б'], pref.combine) ) {
         obj['Оператор'] = pref.nameCountry;
-        obj['Тариф'] = pref.cost;
+        obj['Тариф'] = String(pref.cost);
         obj['Категория'] = 'МН';
-        obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat(pref.cost.replace(',', '.') );
+        obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( pref.cost.replace(',', '.') );
         table.append(createTables(obj));
+        result.push(obj);
         continue start;
       }
     }
 
     table.append(createTables(obj));
+    result.push(obj);
   }
   //console.log(callOut);
   //console.table(callOut);
@@ -202,13 +241,16 @@ start: for (let obj of callOut) {
   document.querySelector('.tadle-container').classList.remove('hidden');
   //link.classList.remove('hidden');
 
-  const csv = arrObjtoCSV(callOut);
+  //const csv = arrObjtoCSV(callOut);
+  const csv = arrObjtoCSV(result);
 
   const blob = new Blob(["\ufeff", csv]);
   const url = URL.createObjectURL(blob);
   const dat = date();
   link.href = url;
   link.download = 'billing-data_' + dat + '.csv';
+
+  console.log( minutesCount(result) );
 }
 
 function isCode(num, code) {
@@ -294,6 +336,16 @@ function date() {
   result += date.getDate() + '-';
   result += (date.getMonth() + 1) + '-';
   result += date.getFullYear();
+
+  return result;
+}
+
+function minutesCount(array) {
+  let result = 0;
+
+  for (let obj of array) {
+    result += +obj['Длит. (окр.)'];
+  }
 
   return result;
 }

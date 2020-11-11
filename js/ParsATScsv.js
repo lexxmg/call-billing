@@ -39,7 +39,7 @@ class ParsATScsv {
               return false;
             }
           }
-          arr['Длит. (окр.)'] = String( this._strToSeconds(arr['Длит.']) );
+          arr['Длит. (окр.)'] = String( this._strToMinutes(arr['Длит.']) );
           return true;
         }
       });
@@ -48,7 +48,7 @@ class ParsATScsv {
         const pcmBull = this._pcmOut(arr['Исходящая линия'], this.pcm);
 
         if (pcmBull) {
-          arr['Длит. (окр.)'] = String( this._strToSeconds(arr['Длит.']) );
+          arr['Длит. (окр.)'] = String( this._strToMinutes(arr['Длит.']) );
           return true;
         }
         return pcmBull;
@@ -112,6 +112,12 @@ class ParsATScsv {
 
     // minutes are worth 60 seconds. Hours are worth 60 minutes.
     return (+arr[0]) * 60 * 60 + (+arr[1]) * 60 + (+arr[2]);
+  }
+
+  _strToMinutes(str) {
+    const arr = str.split(':');
+
+    return ( (+arr[0] * 60 + +arr[1]) + ( (+arr[2] >= 30) ? 1 : 0) );
   }
 
   _pcmOut(outLine, pcmArr) {
