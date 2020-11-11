@@ -114,7 +114,11 @@ function readeFile(data, callBack) {
 }
 
 function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
-  const ats = new ParsATScsv(phoneData);
+  const ats = new ParsATScsv(phoneData, {
+    exception: [495, 499, 496, 800],
+    psm: ['001000', '001001']
+  });
+
   const subscriber = new ParsAbonCsv(sub);
   const mn = new ParsMNcsv(mN);
   const abc3 = new ParsABC(abc3x);
@@ -360,10 +364,12 @@ function getSort({ target }) {
   const order = (target.dataset.order = -(target.dataset.order || -1));
   const index = [...target.parentNode.cells].indexOf(target);
   const collator = new Intl.Collator(['en', 'ru'], { numeric: true });
-  const comparator = (index, order) => (a, b) => order * collator.compare(
-    a.children[index].innerHTML,
-    b.children[index].innerHTML
-  );
+
+  function comparator(index, order) {
+    return function(a, b) {
+      return order * collator.compare(a.children[index].innerHTML, b.children[index].innerHTML);
+    }
+  }
 
   for(const tBody of target.closest('table').tBodies) {
     tBody.append( ...[...tBody.rows].sort( comparator(index, order) ) );

@@ -10,11 +10,11 @@ class ParsATScsv {
    * this.pcm = ['001000', '001001'] Исходящие потоки, по ним определяется исходящая связь
    */
 
-  constructor(string) {
+  constructor(string, {exception = [], pcm = ['001000', '001001']} = {}) {
     this.array = this._stringToArray(string);
     this.allCalls = this._allCalls();
-    this.exception = [495, 499, 496, 800];
-    this.pcm = ['001000', '001001'];
+    this.exception = exception;
+    this.pcm = pcm;
   }
 
   get callIn() {
