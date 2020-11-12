@@ -115,7 +115,7 @@ function readeFile(data, callBack) {
 
 function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const ats = new ParsATScsv(phoneData, {
-    exception: [495, 499, 496, 800],
+    exception: [495, 499],
     psm: ['001000', '001001']
   });
 
@@ -129,7 +129,7 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const result = [];
 
 start: for (let obj of callOut) {
-    //if ( +obj['Причина'] !== 16 && +obj['Причина'] !== 19) continue start; // Оnбросить всё что не
+    if ( +obj['Причина'] !== 16 && +obj['Причина'] !== 17 && +obj['Причина'] !== 19) continue start; // Оnбросить всё что не
     //if ( +obj['Причина'] !== 16 ) continue; // Оnбросить всё что не 16
     //if ( obj['Длит. (окр.)'] === '0' ) continue; //Отбросить нулевую длительность
 
