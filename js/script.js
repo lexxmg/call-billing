@@ -147,13 +147,7 @@ start: for (let obj of callOut) {
           if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
             obj['Оператор'] = objABC.RegionName;
             obj['Класс'] = objABC.prov;
-
-            if (objABC.cost) {
-              obj['Тариф'] = String(objABC.cost);
-            } else {
-              obj['Тариф'] = '0';
-            }
-
+            obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'Сотовые';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
             table.append(createTables(obj));
@@ -170,13 +164,7 @@ start: for (let obj of callOut) {
           if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
             obj['Оператор'] = objABC.RegionName;
             obj['Класс'] = objABC.prov;
-
-              if (objABC.cost) {
-                obj['Тариф'] = String(objABC.cost);
-              } else {
-                obj['Тариф'] = '0';
-              }
-
+            obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
             table.append(createTables(obj));
@@ -193,13 +181,7 @@ start: for (let obj of callOut) {
           if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
             obj['Оператор'] = objABC.RegionName;
             obj['Класс'] = objABC.prov;
-
-              if (objABC.cost) {
-                obj['Тариф'] = String(objABC.cost);
-              } else {
-                obj['Тариф'] = '0';
-              }
-
+            obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
             table.append(createTables(obj));
@@ -216,13 +198,7 @@ start: for (let obj of callOut) {
           if ( +obj['Номер Б'] >= Number(objABC.abc + objABC.start) && +obj['Номер Б'] <= Number(objABC.abc + objABC.end) ) {
             obj['Оператор'] = objABC.RegionName;
             obj['Класс'] = objABC.prov;
-
-            if (objABC.cost) {
-              obj['Тариф'] = String(objABC.cost);
-            } else {
-              obj['Тариф'] = '0';
-            }
-
+            obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
             table.append(createTables(obj));
