@@ -115,7 +115,7 @@ function readeFile(data, callBack) {
 
 function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const ats = new ParsATScsv(phoneData, {
-    exception: [495, 499, 496, 800],
+    exception: [495, 499],
     psm: ['001000', '001001']
   });
 
