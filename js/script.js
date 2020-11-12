@@ -139,7 +139,7 @@ start: for (let obj of callOut) {
       }
     }
 
-    if (obj['Абонент'] === '') continue start; // Отбросить всех кто не в базе наших номеров
+    //if (obj['Абонент'] === '') continue start; // Отбросить всех кто не в базе наших номеров
 
     if ( isCode(obj['Номер Б'], 9) ) {
       for (let objABC of abc9.objPref) {
