@@ -129,9 +129,10 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const result = [];
 
 start: for (let obj of callOut) {
-    if ( +obj['Причина'] !== 16 && +obj['Причина'] !== 17 && +obj['Причина'] !== 19) continue start; // Оnбросить всё что не
+    //if ( +obj['Причина'] !== 16 && +obj['Причина'] !== 17 && +obj['Причина'] !== 19) continue start; // Оnбросить всё что не
     //if ( +obj['Причина'] !== 16 ) continue; // Оnбросить всё что не 16
     //if ( obj['Длит. (окр.)'] === '0' ) continue; //Отбросить нулевую длительность
+    if (+obj['Причина'] === 17) continue start;
 
 
     for (let abon of subscriber.abonents) {
@@ -154,6 +155,7 @@ start: for (let obj of callOut) {
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
 
             if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
+            //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
             table.append(createTables(obj));
             result.push(obj);
