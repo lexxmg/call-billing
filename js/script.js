@@ -129,8 +129,10 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const result = [];
 
 start: for (let obj of callOut) {
-    if ( +obj['Причина'] !== 16 ) continue; // Оnбросить всё что не 16
+    //if ( +obj['Причина'] !== 16 && +obj['Причина'] !== 19) continue start; // Оnбросить всё что не
+    //if ( +obj['Причина'] !== 16 ) continue; // Оnбросить всё что не 16
     //if ( obj['Длит. (окр.)'] === '0' ) continue; //Отбросить нулевую длительность
+
 
     for (let abon of subscriber.abonents) {
       if ( isCode(obj['Номер A'], abon.phoneNumber) ) {
@@ -139,7 +141,7 @@ start: for (let obj of callOut) {
       }
     }
 
-    //if (obj['Абонент'] === '') continue start; // Отбросить всех кто не в базе наших номеров
+    if (obj['Абонент'] === '') continue start; // Отбросить всех кто не в базе наших номеров
 
     if ( isCode(obj['Номер Б'], 9) ) {
       for (let objABC of abc9.objPref) {
@@ -150,6 +152,9 @@ start: for (let obj of callOut) {
             obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'Сотовые';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
+
+            if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
+
             table.append(createTables(obj));
             result.push(obj);
             continue start;
@@ -167,6 +172,9 @@ start: for (let obj of callOut) {
             obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
+
+            if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
+
             table.append(createTables(obj));
             result.push(obj);
             continue start;
@@ -184,6 +192,9 @@ start: for (let obj of callOut) {
             obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
+
+            if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
+
             table.append(createTables(obj));
             result.push(obj);
             continue start;
@@ -201,6 +212,9 @@ start: for (let obj of callOut) {
             obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
+
+            if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
+
             table.append(createTables(obj));
             result.push(obj);
             continue start;
