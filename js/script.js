@@ -173,7 +173,7 @@ start: for (let obj of callOut) {
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
 
-            if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
+            //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
             table.append(createTables(obj));
             result.push(obj);
@@ -193,7 +193,7 @@ start: for (let obj of callOut) {
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
 
-            if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
+            //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
             table.append(createTables(obj));
             result.push(obj);
@@ -213,7 +213,7 @@ start: for (let obj of callOut) {
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
 
-            if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
+            //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
             table.append(createTables(obj));
             result.push(obj);
