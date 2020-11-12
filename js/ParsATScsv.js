@@ -117,7 +117,7 @@ class ParsATScsv {
   _strToMinutes(str) {
     const arr = str.split(':');
 
-    return ( (+arr[0] * 60 + +arr[1]) + ( (+arr[2] >= 1) ? 1 : 0) );
+    return ( (+arr[0] * 60 + +arr[1]) + ( (+arr[2] >= 10) ? 1 : 0) );
   }
 
   _pcmOut(outLine, pcmArr) {
