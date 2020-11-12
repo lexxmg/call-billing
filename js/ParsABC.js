@@ -28,41 +28,44 @@ class ParsABC {
 
     for (let arr of array) {
       const obj = {};
+
+      if (arr.length !== arrNames.length) {
+        arr.push('0');
+      }
+
       for (let i = 0; i < arr.length; i++) {
         obj[arrNames[i]] = arr[i];
       }
 
       if ( String(obj.start).length < 7 ) {
-        const str = String(obj.start);
-        const strLength = String(obj.start).length;
-        const countZero = 7 - strLength;
-
-        let arr = str.split('');
-
-        for (let i = 0; i < countZero; i++) {
-          arr.unshift('0');
-        }
-
-        obj.start = arr.join('');
+        obj.start = this._addZeros(obj.start, 7);
       }
 
       if ( String(obj.end).length < 7 ) {
-        const str = String(obj.end);
-        const strLength = String(obj.end).length;
-        const countZero = 7 - strLength;
+        obj.end = this._addZeros(obj.end, 7);
+      }
 
-        let arr = str.split('');
-
-        for (let i = 0; i < countZero; i++) {
-          arr.unshift('0');
-        }
-
-        obj.end = arr.join('');
+      if (obj.cost === '') {
+        obj.cost = '0';
       }
 
       result.push(obj);
     }
 
     return result;
+  }
+
+  _addZeros(num, numLength) {
+    const str = String(num);
+    const strLength = str.length;
+    const countZero = numLength - strLength;
+
+    let arr = str.split('');
+
+    for (let i = 0; i < countZero; i++) {
+      arr.unshift('0');
+    }
+
+    return arr.join('');
   }
 }
