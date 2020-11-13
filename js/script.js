@@ -15,6 +15,8 @@ document.querySelectorAll('.table_sort thead')
 let exception = strToArr('499, 495');
 let psm = strToArr('001000, 001001');
 let excludeCause = strToArr('17, 3, 1, 28');
+let excludeProv = 'ПАО Мобильные ТелеСистемы';
+let excludeCity = 'г. Москва и Московская область';
 
 let subscriberData;
 let phonecallsData;
@@ -23,6 +25,12 @@ let abc3Data;
 let abc4Data;
 let abc8Data;
 let abc9Data;
+
+document.querySelector('input[name="excludeCause"]').value = excludeCause;
+document.querySelector('input[name="excludeCause"]').addEventListener('input', () => {
+  excludeCause = strToArr( String( document.querySelector('input[name="excludeCause"]').value ) );
+  console.log(excludeCause);
+});
 
 inputFile.addEventListener('change', () => {
   const file = inputFile.files;
@@ -158,7 +166,17 @@ start: for (let obj of callOut) {
             obj['Категория'] = 'Сотовые';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
 
-            if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
+            if (excludeCity !== '' && excludeProv === '') {
+              if (obj['Оператор'] === excludeCity) continue start;
+            }
+
+            if (excludeCity !== '' && excludeProv !== '') {
+              if (obj['Оператор'] === excludeCity && obj['Класс'] === excludeProv) continue start;
+            }
+
+            if (excludeCity === '' && excludeProv !== '') {
+              if (obj['Класс'] === excludeProv) continue start;
+            }
             //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
             table.append(createTables(obj));
