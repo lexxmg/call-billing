@@ -17,6 +17,7 @@ let psm = strToArr('001000, 001001');
 let excludeCause = strToArr('17, 3, 1, 28');
 let excludeProv = 'ПАО Мобильные ТелеСистемы';
 let excludeCity = 'г. Москва и Московская область';
+let round = 10;
 
 let subscriberData;
 let phonecallsData;
@@ -128,7 +129,8 @@ function readeFile(data, callBack) {
 function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const ats = new ParsATScsv(phoneData, {
     exception: exception,
-    psm: psm
+    psm: psm,
+    round: round
   });
 
   const subscriber = new ParsAbonCsv(sub);

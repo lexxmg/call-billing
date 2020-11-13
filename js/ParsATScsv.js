@@ -10,11 +10,12 @@ class ParsATScsv {
    * this.pcm = ['001000', '001001'] Исходящие потоки, по ним определяется исходящая связь
    */
 
-  constructor(string, {exception = [], pcm = ['001000', '001001']} = {}) {
+  constructor(string, {exception = [], pcm = ['001000', '001001'], round = 10} = {}) {
     this.array = this._stringToArray(string);
     this.allCalls = this._allCalls();
     this.exception = exception;
     this.pcm = pcm;
+    this.round = round;
   }
 
   get callIn() {
@@ -117,7 +118,7 @@ class ParsATScsv {
   _strToMinutes(str) {
     const arr = str.split(':');
 
-    return ( (+arr[0] * 60 + +arr[1]) + ( (+arr[2] >= 10) ? 1 : 0) );
+    return ( (+arr[0] * 60 + +arr[1]) + ( (+arr[2] >= this.round) ? 1 : 0) );
   }
 
   _pcmOut(outLine, pcmArr) {
