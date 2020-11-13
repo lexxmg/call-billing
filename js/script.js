@@ -12,6 +12,10 @@ document.querySelectorAll('.table_sort thead')
     });
   });
 
+let exception = strToArr('499, 495');
+let psm = strToArr('001000, 001001');
+let excludeCause = strToArr('17, 3, 1, 28');
+
 let subscriberData;
 let phonecallsData;
 let mnData;
@@ -115,8 +119,8 @@ function readeFile(data, callBack) {
 
 function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const ats = new ParsATScsv(phoneData, {
-    exception: [495, 499],
-    psm: ['001000', '001001']
+    exception: exception,
+    psm: psm
   });
 
   const subscriber = new ParsAbonCsv(sub);
@@ -129,10 +133,10 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const result = [];
 
 start: for (let obj of callOut) {
-    //if ( +obj['Причина'] !== 16 && +obj['Причина'] !== 17 && +obj['Причина'] !== 19) continue start; // Оnбросить всё что не
-    //if ( +obj['Причина'] !== 16 ) continue; // Оnбросить всё что не 16
-    //if ( obj['Длит. (окр.)'] === '0' ) continue; //Отбросить нулевую длительность
-    if (+obj['Причина'] === 17) continue start;
+
+    for (let cause of excludeCause) {
+      if (+obj['Причина'] === +cause) continue start;
+    }
 
 
     for (let abon of subscriber.abonents) {
@@ -379,3 +383,15 @@ function getSort({ target }) {
     cell.classList.toggle('sorted', cell === target);
   }
 };
+
+function strToArr(string) {
+  const str = string || '';
+  const result = [];
+  const arr = str.split(',');
+
+  for (let str of arr) {
+    result.push(str.trim());
+  }
+
+  return result;
+}
