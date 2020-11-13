@@ -153,10 +153,12 @@ start: for (let obj of callOut) {
       if ( isCode(obj['Номер A'], abon.phoneNumber) ) {
         obj['Абонент'] = abon.bonentName;
         break;
+      } else {
+        obj['Абонент'] = 'Нет в базе';
       }
     }
 
-    if (obj['Абонент'] === '') continue start; // Отбросить всех кто не в базе наших номеров
+    if (obj['Абонент'] === 'Нет в базе') continue start; // Отбросить всех кто не в базе наших номеров
 
     if ( isCode(obj['Номер Б'], 9) ) {
       for (let objABC of abc9.objPref) {
