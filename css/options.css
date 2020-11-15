@@ -14,7 +14,7 @@
 }
 
 .form__input {
-  width: 150px;
+  width: 120px;
 
   text-align: center;
 }
@@ -33,7 +33,7 @@
 
 }
 
-#base:checked + .form__label {
+.form__input:checked ~ .form__label {
   text-decoration: line-through;
 }
 
@@ -43,4 +43,6 @@
   display: flex;
 
   justify-content: space-between;
+
+  width: 580px;
 }
