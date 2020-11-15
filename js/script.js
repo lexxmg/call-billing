@@ -20,7 +20,7 @@ let psm = strToArr('001000, 001001');
 let excludeCause = [];
 let excludeProv = 'ПАО Мобильные ТелеСистемы';
 let excludeCity = 'г. Москва и Московская область';
-let round = 59;
+let round = 10;
 
 let subscriberData;
 let phonecallsData;
@@ -368,7 +368,7 @@ function makeTable(arrObj, {exception = [499, 495],
                             excludeCause = [],
                             excludeProv = 'ПАО Мобильные ТелеСистемы',
                             excludeCity = 'г. Москва и Московская область',
-                            round = 59,
+                            round = 1,
                             base = false} = {}) {
   resultFilter = [];
 
@@ -380,6 +380,8 @@ function makeTable(arrObj, {exception = [499, 495],
     for (let cause of excludeCause) {
       if (+obj['Причина'] === +cause) continue start;
     }
+
+    obj['Длит. (окр.)'] = strToMinutes(obj['Длит.'], round);
 
     table.append( createTables(obj) );
     resultFilter.push(obj);
@@ -506,4 +508,10 @@ function strToArr(string) {
   }
 
   return result;
+}
+
+function strToMinutes(str, round) {
+  const arr = str.split(':');
+
+  return ( (+arr[0] * 60 + +arr[1]) + ( (+arr[2] >= round) ? 1 : 0) );
 }
