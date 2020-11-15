@@ -36,3 +36,11 @@
 #base:checked + .form__label {
   text-decoration: line-through;
 }
+
+.form__inner {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+
+  justify-content: space-between;
+}
