@@ -1,0 +1,38 @@
+.options {
+  padding: 5px 20px;
+}
+
+.form {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form__item {
+
+}
+
+.form__input {
+  width: 150px;
+
+  text-align: center;
+}
+
+#round {
+  width: 30px;
+}
+
+.form__label {
+  margin: 0 5px 0 0;
+
+  cursor: pointer;
+}
+
+.form__check {
+
+}
+
+#base:checked + .form__label {
+  text-decoration: line-through;
+}

@@ -1,5 +1,6 @@
 'use strict';
 
+const form = document.querySelector('.form');
 const inputFile = document.querySelector('.input__item');
 const table = document.querySelector('.table__body');
 const link = document.querySelector('.link');
@@ -16,10 +17,10 @@ const result = [];
 let resultFilter = [];
 let exception = strToArr('499, 495');
 let psm = strToArr('001000, 001001');
-let excludeCause = strToArr('17, 3, 1, 28');
+let excludeCause = [];
 let excludeProv = 'ПАО Мобильные ТелеСистемы';
 let excludeCity = 'г. Москва и Московская область';
-let round = 10;
+let round = 59;
 
 let subscriberData;
 let phonecallsData;
@@ -29,13 +30,51 @@ let abc4Data;
 let abc8Data;
 let abc9Data;
 
+form.pref.value = exception;
+form.psm.value = psm;
+form.cause.value = '17, 3, 1, 28';
+form.round.value = 10;
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  table.innerHTML = '';
+
+  makeTable(result, {
+    exception: strToArr(form.pref.value),
+    psm: strToArr(form.psm.value),
+    excludeCause: strToArr(form.cause.value),
+    excludeProv: 'ПАО Мобильные ТелеСистемы',
+    excludeCity: 'г. Москва и Московская область',
+    round: +form.round.value
+  });
+
+  const csv = arrObjtoCSV(resultFilter);
+
+  const blob = new Blob(["\ufeff", csv]);
+  const url = URL.createObjectURL(blob);
+  const dat = date();
+  link.href = url;
+  link.download = 'billing-data_filter' + dat + '.csv';
+
+  console.log( minutesCount(resultFilter) );
+  console.log(resultFilter.length);
+
+  console.log(excludeCause);
+});
+
 document.querySelector('input[name="excludeCause"]').value = excludeCause;
 document.querySelector('input[name="excludeCause"]').addEventListener('input', () => {
   excludeCause = strToArr( String( document.querySelector('input[name="excludeCause"]').value ) );
 
   table.innerHTML = '';
   makeTable(result, {
-    excludeCause: excludeCause
+    exception: exception,
+    psm: psm,
+    excludeCause: excludeCause,
+    excludeProv: excludeProv,
+    excludeCity: excludeCity,
+    round: round
   });
 
   const csv = arrObjtoCSV(resultFilter);
@@ -294,7 +333,14 @@ start: for (let obj of callOut) {
   document.querySelector('.tadle-container').classList.remove('hidden');
   //link.classList.remove('hidden');
 
-  makeTable(result);
+  makeTable(result, {
+    exception: exception,
+    psm: psm,
+    excludeCause: excludeCause,
+    excludeProv: excludeProv,
+    excludeCity: excludeCity,
+    round: round
+  });
 
   //const csv = arrObjtoCSV(callOut);
   const csv = arrObjtoCSV(result);
@@ -318,10 +364,10 @@ function isCode(num, code) {
 
 function makeTable(arrObj, {exception = [499, 495],
                             psm = ['001000', '001001'],
-                            excludeCause = [17, 3, 1, 28],
+                            excludeCause = [],
                             excludeProv = 'ПАО Мобильные ТелеСистемы',
                             excludeCity = 'г. Москва и Московская область',
-                            round = 10} = {}) {
+                            round = 59} = {}) {
   resultFilter = [];
 
   start: for (let obj of arrObj) {

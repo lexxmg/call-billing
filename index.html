@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/options.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/table.css">
     <link rel="stylesheet" href="css/input.css">
@@ -27,6 +28,35 @@
       <label for="">Исключить причины:
         <input type="text" name="excludeCause" style="text-align: center">
       </label>
+
+      <div class="options">
+        <form action="#" class="form">
+          <div class="form__item">
+            <label for="cause" class="form__label">Исключить причину:</label>
+            <input type="text" class="form__input" id="cause" name="cause">
+          </div>
+          <div class="form__item">
+            <label for="pref" class="form__label">Исключить префекс:</label>
+            <input type="text" class="form__input" id="pref" name="pref">
+          </div>
+          <div class="form__item">
+            <label for="psm" class="form__label">PSM:</label>
+            <input type="text" class="form__input" id="psm" name="psm">
+          </div>
+          <div class="form__item">
+            <label for="round" class="form__label">Округлать с:</label>
+            <input type="text" class="form__input" id="round" name="round">
+          </div>
+          <div class="form__item">
+            <div class="form__check">
+              <input class="form__input visually-hidden" id="base" type="checkbox" name="base">
+              <label for="base" class="form__label">Только в базе</label>
+            </div>
+          </div>
+
+          <button class="form__btn" name="button">Применить</button>
+        </form>
+      </div>
 
 
       <div class="main">
