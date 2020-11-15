@@ -11,7 +11,7 @@ document.querySelectorAll('.table_sort thead')
       getSort(event)
     });
   });
-
+const result = [];
 let exception = strToArr('499, 495');
 let psm = strToArr('001000, 001001');
 let excludeCause = strToArr('17, 3, 1, 28');
@@ -30,6 +30,12 @@ let abc9Data;
 document.querySelector('input[name="excludeCause"]').value = excludeCause;
 document.querySelector('input[name="excludeCause"]').addEventListener('input', () => {
   excludeCause = strToArr( String( document.querySelector('input[name="excludeCause"]').value ) );
+
+  table.innerHTML = '';
+  makeTable(result, {
+    excludeCause: excludeCause
+  });
+
   console.log(excludeCause);
 });
 
@@ -140,7 +146,6 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
   const abc8 = new ParsABC(abc8x);
   const abc9 = new ParsABC(abc9x);
   const callOut = ats.callOut;
-  const result = [];
 
 start: for (let obj of callOut) {
 
@@ -183,7 +188,7 @@ start: for (let obj of callOut) {
             }
             //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
-            table.append(createTables(obj));
+            //table.append(createTables(obj));
             result.push(obj);
             continue start;
           }
@@ -203,7 +208,7 @@ start: for (let obj of callOut) {
 
             //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
-            table.append(createTables(obj));
+            //table.append(createTables(obj));
             result.push(obj);
             continue start;
           }
@@ -223,7 +228,7 @@ start: for (let obj of callOut) {
 
             //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
-            table.append(createTables(obj));
+            //table.append(createTables(obj));
             result.push(obj);
             continue start;
           }
@@ -243,7 +248,7 @@ start: for (let obj of callOut) {
 
             //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
-            table.append(createTables(obj));
+            //table.append(createTables(obj));
             result.push(obj);
             continue start;
           }
@@ -257,13 +262,13 @@ start: for (let obj of callOut) {
         obj['Тариф'] = String(pref.cost);
         obj['Категория'] = 'МН';
         obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( pref.cost.replace(',', '.') );
-        table.append(createTables(obj));
+        //table.append(createTables(obj));
         result.push(obj);
         continue start;
       }
     }
 
-    table.append(createTables(obj));
+    //table.append(createTables(obj));
     result.push(obj);
   }
   //console.log(callOut);
@@ -275,6 +280,8 @@ start: for (let obj of callOut) {
   document.querySelector('.background').classList.add('hidden');
   document.querySelector('.tadle-container').classList.remove('hidden');
   //link.classList.remove('hidden');
+
+  makeTable(result);
 
   //const csv = arrObjtoCSV(callOut);
   const csv = arrObjtoCSV(result);
@@ -294,6 +301,21 @@ function isCode(num, code) {
   const numCode = String(num).substring(0, lengthCode);
 
   return String(code) === numCode;
+}
+
+function makeTable(arrObj, {exception = [499, 495],
+                            psm = ['001000', '001001'],
+                            excludeCause = [17, 3, 1, 28],
+                            excludeProv = 'ПАО Мобильные ТелеСистемы',
+                            excludeCity = 'г. Москва и Московская область',
+                            round = 10} = {}) {
+  start: for (let obj of arrObj) {
+    for (let cause of excludeCause) {
+      if (+obj['Причина'] === +cause) continue start;
+    }
+
+    table.append( createTables(obj) );
+  }
 }
 
 function createTables(obj) {
