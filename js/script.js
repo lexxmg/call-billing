@@ -11,7 +11,9 @@ document.querySelectorAll('.table_sort thead')
       getSort(event)
     });
   });
+
 const result = [];
+let resultFilter = [];
 let exception = strToArr('499, 495');
 let psm = strToArr('001000, 001001');
 let excludeCause = strToArr('17, 3, 1, 28');
@@ -35,6 +37,17 @@ document.querySelector('input[name="excludeCause"]').addEventListener('input', (
   makeTable(result, {
     excludeCause: excludeCause
   });
+
+  const csv = arrObjtoCSV(resultFilter);
+
+  const blob = new Blob(["\ufeff", csv]);
+  const url = URL.createObjectURL(blob);
+  const dat = date();
+  link.href = url;
+  link.download = 'billing-data_filter' + dat + '.csv';
+
+  console.log( minutesCount(resultFilter) );
+  console.log(resultFilter.length);
 
   console.log(excludeCause);
 });
@@ -309,12 +322,15 @@ function makeTable(arrObj, {exception = [499, 495],
                             excludeProv = 'ПАО Мобильные ТелеСистемы',
                             excludeCity = 'г. Москва и Московская область',
                             round = 10} = {}) {
+  resultFilter = [];
+
   start: for (let obj of arrObj) {
     for (let cause of excludeCause) {
       if (+obj['Причина'] === +cause) continue start;
     }
 
     table.append( createTables(obj) );
+    resultFilter.push(obj);
   }
 }
 
