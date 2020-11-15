@@ -46,7 +46,8 @@ form.addEventListener('submit', (event) => {
     excludeCause: strToArr(form.cause.value),
     excludeProv: 'ПАО Мобильные ТелеСистемы',
     excludeCity: 'г. Москва и Московская область',
-    round: +form.round.value
+    round: +form.round.value,
+    base: form.base.checked
   });
 
   const csv = arrObjtoCSV(resultFilter);
@@ -215,7 +216,7 @@ start: for (let obj of callOut) {
       }
     }
 
-    if (obj['Абонент'] === 'Нет в базе') continue start; // Отбросить всех кто не в базе наших номеров
+    //if (obj['Абонент'] === 'Нет в базе') continue start; // Отбросить всех кто не в базе наших номеров
 
     if ( isCode(obj['Номер Б'], 9) ) {
       for (let objABC of abc9.objPref) {
@@ -367,10 +368,15 @@ function makeTable(arrObj, {exception = [499, 495],
                             excludeCause = [],
                             excludeProv = 'ПАО Мобильные ТелеСистемы',
                             excludeCity = 'г. Москва и Московская область',
-                            round = 59} = {}) {
+                            round = 59,
+                            base = false} = {}) {
   resultFilter = [];
 
   start: for (let obj of arrObj) {
+    if (base) {
+      if (obj['Абонент'] === 'Нет в базе') continue start;
+    }
+
     for (let cause of excludeCause) {
       if (+obj['Причина'] === +cause) continue start;
     }
