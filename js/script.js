@@ -5,6 +5,8 @@ const inputFile = document.querySelector('.input__item');
 const table = document.querySelector('.table__body');
 const link = document.querySelector('.link');
 const listItem = document.querySelectorAll('.list__item');
+const countStr = document.querySelector('.js-count-str');
+const countMin = document.querySelector('.js-count-min');
 
 document.querySelectorAll('.table_sort thead')
   .forEach(tableTH => {
@@ -15,12 +17,10 @@ document.querySelectorAll('.table_sort thead')
 
 const result = [];
 let resultFilter = [];
+
 let exception = strToArr('499, 495');
 let psm = strToArr('001000, 001001');
-let excludeCause = [];
-let excludeProv = 'ПАО Мобильные ТелеСистемы';
-let excludeCity = 'г. Москва и Московская область';
-let round = 10;
+let round = 59;
 
 let subscriberData;
 let phonecallsData;
@@ -34,6 +34,8 @@ form.pref.value = exception;
 form.psm.value = psm;
 form.cause.value = '17, 3, 1, 28';
 form.round.value = 10;
+form.sity.value = 'г. Москва и Московская область';
+form.prov.value = 'ПАО Мобильные ТелеСистемы';
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -42,12 +44,16 @@ form.addEventListener('submit', (event) => {
 
   makeTable(result, {
     exception: strToArr(form.pref.value),
-    psm: strToArr(form.psm.value),
     excludeCause: strToArr(form.cause.value),
-    excludeProv: 'ПАО Мобильные ТелеСистемы',
-    excludeCity: 'г. Москва и Московская область',
+    excludeProv: form.prov.value,
+    excludeCity: form.sity.value,
+    abc3: !form.abc3.checked,
+    abc4: !form.abc4.checked,
+    abc8: !form.abc8.checked,
+    def9: !form.def9.checked,
     round: +form.round.value,
-    base: form.base.checked
+    base: form.base.checked,
+    zerroMin: form.zerroMin.checked
   });
 
   const csv = arrObjtoCSV(resultFilter);
@@ -58,38 +64,10 @@ form.addEventListener('submit', (event) => {
   link.href = url;
   link.download = 'billing-data_filter' + dat + '.csv';
 
-  console.log( minutesCount(resultFilter) );
-  console.log(resultFilter.length);
-
-  console.log(excludeCause);
-});
-
-document.querySelector('input[name="excludeCause"]').value = excludeCause;
-document.querySelector('input[name="excludeCause"]').addEventListener('input', () => {
-  excludeCause = strToArr( String( document.querySelector('input[name="excludeCause"]').value ) );
-
-  table.innerHTML = '';
-  makeTable(result, {
-    exception: exception,
-    psm: psm,
-    excludeCause: excludeCause,
-    excludeProv: excludeProv,
-    excludeCity: excludeCity,
-    round: round
-  });
-
-  const csv = arrObjtoCSV(resultFilter);
-
-  const blob = new Blob(["\ufeff", csv]);
-  const url = URL.createObjectURL(blob);
-  const dat = date();
-  link.href = url;
-  link.download = 'billing-data_filter' + dat + '.csv';
-
-  console.log( minutesCount(resultFilter) );
-  console.log(resultFilter.length);
-
-  console.log(excludeCause);
+  countMin.innerText = minutesCount(resultFilter);
+  countStr.innerText = resultFilter.length;
+  //console.log( minutesCount(resultFilter) );
+  //console.log(resultFilter.length);
 });
 
 inputFile.addEventListener('change', () => {
@@ -202,9 +180,9 @@ function pars(phoneData, sub, mN, abc3x, abc4x, abc8x, abc9x) {
 
 start: for (let obj of callOut) {
 
-    for (let cause of excludeCause) {
-      if (+obj['Причина'] === +cause) continue start;
-    }
+    // for (let cause of excludeCause) {
+    //   if (+obj['Причина'] === +cause) continue start;
+    // }
 
 
     for (let abon of subscriber.abonents) {
@@ -228,17 +206,17 @@ start: for (let obj of callOut) {
             obj['Категория'] = 'Сотовые';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
 
-            if (excludeCity !== '' && excludeProv === '') {
-              if (obj['Оператор'] === excludeCity) continue start;
-            }
-
-            if (excludeCity !== '' && excludeProv !== '') {
-              if (obj['Оператор'] === excludeCity && obj['Класс'] === excludeProv) continue start;
-            }
-
-            if (excludeCity === '' && excludeProv !== '') {
-              if (obj['Класс'] === excludeProv) continue start;
-            }
+            // if (excludeCity !== '' && excludeProv === '') {
+            //   if (obj['Оператор'] === excludeCity) continue start;
+            // }
+            //
+            // if (excludeCity !== '' && excludeProv !== '') {
+            //   if (obj['Оператор'] === excludeCity && obj['Класс'] === excludeProv) continue start;
+            // }
+            //
+            // if (excludeCity === '' && excludeProv !== '') {
+            //   if (obj['Класс'] === excludeProv) continue start;
+            // }
             //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
             //table.append(createTables(obj));
@@ -332,15 +310,13 @@ start: for (let obj of callOut) {
   document.querySelector('.input-container').classList.add('hidden');
   document.querySelector('.background').classList.add('hidden');
   document.querySelector('.tadle-container').classList.remove('hidden');
+  document.querySelector('.options').classList.remove('hidden');
   //link.classList.remove('hidden');
 
   makeTable(result, {
     exception: exception,
-    psm: psm,
-    excludeCause: excludeCause,
-    excludeProv: excludeProv,
-    excludeCity: excludeCity,
-    round: round
+    excludeProv: '',
+    excludeCity: '',
   });
 
   //const csv = arrObjtoCSV(callOut);
@@ -352,8 +328,10 @@ start: for (let obj of callOut) {
   link.href = url;
   link.download = 'billing-data_' + dat + '.csv';
 
-  console.log( minutesCount(result) );
-  console.log(result.length);
+  countMin.innerText = minutesCount(resultFilter);
+  countStr.innerText = resultFilter.length;
+  //console.log( minutesCount(result) );
+  //console.log(result.length);
 }
 
 function isCode(num, code) {
@@ -364,12 +342,16 @@ function isCode(num, code) {
 }
 
 function makeTable(arrObj, {exception = [499, 495],
-                            psm = ['001000', '001001'],
                             excludeCause = [],
                             excludeProv = 'ПАО Мобильные ТелеСистемы',
                             excludeCity = 'г. Москва и Московская область',
+                            abc3 = false,
+                            abc4 = false,
+                            abc8 = false,
+                            def9 = false,
                             round = 1,
-                            base = false} = {}) {
+                            base = false,
+                            zerroMin = false} = {}) {
   resultFilter = [];
 
   start: for (let obj of arrObj) {
@@ -377,11 +359,75 @@ function makeTable(arrObj, {exception = [499, 495],
       if (obj['Абонент'] === 'Нет в базе') continue start;
     }
 
+    for (let pref of exception) {
+      if ( isCode(obj['Номер Б'], pref) ) continue start;
+    }
+
     for (let cause of excludeCause) {
       if (+obj['Причина'] === +cause) continue start;
     }
 
     obj['Длит. (окр.)'] = strToMinutes(obj['Длит.'], round);
+
+    if (zerroMin) {
+      if (+obj['Длит. (окр.)'] === 0) continue start;
+    }
+
+    if ( abc3 && isCode(obj['Номер Б'], 3) ) {
+      if (excludeCity !== '' && excludeProv === '') {
+        if (obj['Оператор'] === excludeCity) continue start;
+      }
+
+      if (excludeCity !== '' && excludeProv !== '') {
+        if (obj['Оператор'] === excludeCity && obj['Класс'] === excludeProv) continue start;
+      }
+
+      if (excludeCity === '' && excludeProv !== '') {
+        if (obj['Класс'] === excludeProv) continue start;
+      }
+    }
+
+    if ( abc4 && isCode(obj['Номер Б'], 4) ) {
+      if (excludeCity !== '' && excludeProv === '') {
+        if (obj['Оператор'] === excludeCity) continue start;
+      }
+
+      if (excludeCity !== '' && excludeProv !== '') {
+        if (obj['Оператор'] === excludeCity && obj['Класс'] === excludeProv) continue start;
+      }
+
+      if (excludeCity === '' && excludeProv !== '') {
+        if (obj['Класс'] === excludeProv) continue start;
+      }
+    }
+
+    if ( abc8 && isCode(obj['Номер Б'], 8) ) {
+      if (excludeCity !== '' && excludeProv === '') {
+        if (obj['Оператор'] === excludeCity) continue start;
+      }
+
+      if (excludeCity !== '' && excludeProv !== '') {
+        if (obj['Оператор'] === excludeCity && obj['Класс'] === excludeProv) continue start;
+      }
+
+      if (excludeCity === '' && excludeProv !== '') {
+        if (obj['Класс'] === excludeProv) continue start;
+      }
+    }
+
+    if ( def9 && isCode(obj['Номер Б'], 9) ) {
+      if (excludeCity !== '' && excludeProv === '') {
+        if (obj['Оператор'] === excludeCity) continue start;
+      }
+
+      if (excludeCity !== '' && excludeProv !== '') {
+        if (obj['Оператор'] === excludeCity && obj['Класс'] === excludeProv) continue start;
+      }
+
+      if (excludeCity === '' && excludeProv !== '') {
+        if (obj['Класс'] === excludeProv) continue start;
+      }
+    }
 
     table.append( createTables(obj) );
     resultFilter.push(obj);

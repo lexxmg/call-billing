@@ -1,0 +1,33 @@
+.info {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+
+  margin: 5px 0;
+}
+
+.info__item {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+
+  min-width: 250px;
+
+  padding: 0 10px 0 0;
+}
+
+.info__label {
+  margin: 0 5px 0 0;
+}
+
+.info__count {
+
+}
+
+.js-count-str {
+
+}
+
+.js-count-min {
+
+}

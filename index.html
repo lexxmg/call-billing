@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/master.css">
     <link rel="stylesheet" href="css/options.css">
+    <link rel="stylesheet" href="css/info.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/table.css">
     <link rel="stylesheet" href="css/input.css">
@@ -25,32 +26,39 @@
 
   <body>
     <div class="wrapper">
-      <label for="">Исключить причины:
-        <input type="text" name="excludeCause" style="text-align: center">
-      </label>
-
-      <div class="options">
+      <div class="options hidden">
         <form action="#" class="form">
           <div class="form__item">
             <label for="cause" class="form__label">Исключить причину:</label>
             <input type="text" class="form__input" id="cause" name="cause">
           </div>
+
           <div class="form__item">
             <label for="pref" class="form__label">Исключить префекс:</label>
             <input type="text" class="form__input" id="pref" name="pref">
           </div>
+
           <div class="form__item">
             <label for="psm" class="form__label">PSM:</label>
             <input type="text" class="form__input" id="psm" name="psm">
           </div>
+
           <div class="form__item">
             <label for="round" class="form__label">Округлать с:</label>
             <input type="text" class="form__input" id="round" name="round">
           </div>
+
           <div class="form__item">
             <div class="form__check">
               <input class="form__input visually-hidden" id="base" type="checkbox" name="base" checked>
               <label for="base" class="form__label">Нет в базе</label>
+            </div>
+          </div>
+
+          <div class="form__item">
+            <div class="form__check">
+              <input class="form__input visually-hidden" id="zerroMin" type="checkbox" name="zerroMin" checked>
+              <label for="zerroMin" class="form__label">Ноль минут</label>
             </div>
           </div>
 
@@ -88,6 +96,18 @@
 
           <button class="form__btn" name="button">Применить</button>
         </form>
+
+        <div class="info">
+          <div class="info__item">
+            <span class="info__label">Колличество соеденений:</span>
+            <span class="info__count js-count-str"></span>
+          </div>
+
+          <div class="info__item">
+            <span class="info__label">Колличество минут:</span>
+            <span class="info__count js-count-min"></span>
+          </div>
+        </div>
       </div>
 
 
