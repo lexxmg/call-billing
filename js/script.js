@@ -31,7 +31,7 @@ let abc8Data;
 let abc9Data;
 
 form.pref.value = exception;
-form.psm.value = psm;
+//form.psm.value = psm;
 form.cause.value = '17, 3, 1, 28';
 form.round.value = 10;
 form.sity.value = 'г. Москва и Московская область';
