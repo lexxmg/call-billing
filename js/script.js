@@ -205,6 +205,7 @@ start: for (let obj of callOut) {
             obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'Сотовые';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
+            obj['Префикс'] = objABC.abc;
 
             // if (excludeCity !== '' && excludeProv === '') {
             //   if (obj['Оператор'] === excludeCity) continue start;
@@ -236,7 +237,7 @@ start: for (let obj of callOut) {
             obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
-
+            obj['Префикс'] = objABC.abc;
             //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
             //table.append(createTables(obj));
@@ -256,7 +257,7 @@ start: for (let obj of callOut) {
             obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
-
+            obj['Префикс'] = objABC.abc;
             //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
             //table.append(createTables(obj));
@@ -276,7 +277,7 @@ start: for (let obj of callOut) {
             obj['Тариф'] = String(objABC.cost);
             obj['Категория'] = 'МГ';
             obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
-
+            obj['Префикс'] = objABC.abc;
             //if (obj['Оператор'] === 'г. Москва и Московская область' && obj['Класс'] === 'ПАО Мобильные ТелеСистемы') continue start;
 
             //table.append(createTables(obj));
@@ -293,6 +294,7 @@ start: for (let obj of callOut) {
         obj['Тариф'] = String(pref.cost);
         obj['Категория'] = 'МН';
         obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( pref.cost.replace(',', '.') );
+        obj['Префикс'] = pref.preff;
         //table.append(createTables(obj));
         result.push(obj);
         continue start;
@@ -447,6 +449,7 @@ function createTables(obj) {
     <td class="table__data">${obj['Длит. (окр.)']}</td>
     <td class="table__data">${obj['Номер A']}</td>
     <td class="table__data">${obj['Номер Б']}</td>
+    <td class="table__data">${obj['Префикс']}</td>
     <td class="table__data">${obj['Тариф']}</td>
     <td class="table__data">${obj['Категория']}</td>
     <td class="table__data">${obj['Входящая линия']}</td>
@@ -468,6 +471,7 @@ function arrObjtoCSV(arrObj) {
           'Минуты' + ';' +
           'Номер А' + ';' +
           'Номер Б' + ';' +
+          'Префикс' + ';' +
           'Тариф' + ';' +
           'Категория' + ';' +
           'Входящая линия' + ';' +
@@ -489,6 +493,7 @@ function arrObjtoCSV(arrObj) {
           obj['Длит. (окр.)'] + ';' +
           obj['Номер A'] + ';' +
           obj['Номер Б'] + ';' +
+          obj['Префикс'] + ';' +
           obj['Тариф'] + ';' +
           obj['Категория'] + ';' +
           obj['Входящая линия'] + ';' +

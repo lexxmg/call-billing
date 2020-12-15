@@ -83,8 +83,9 @@ class ParsMNcsv {
         for (let pref of obj.prefRegion) {
           const newObj = {};
           newObj.nameCountry = obj.nameCountry;
-          newObj.combine = '10' + obj.prefCountry + pref;
+          newObj.combine = '10' + String(obj.prefCountry) + String(pref);
           newObj.cost = obj.cost;
+          newObj.preff = String(obj.prefCountry) + String(pref);
 
           result.push(newObj);
         }
@@ -93,6 +94,7 @@ class ParsMNcsv {
         newObj.nameCountry = obj.nameCountry;
         newObj.combine = '10' + obj.prefCountry;
         newObj.cost = obj.cost;
+        newObj.preff = obj.prefCountry;
 
         result.push(newObj);
       }
