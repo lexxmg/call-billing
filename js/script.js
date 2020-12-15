@@ -20,7 +20,7 @@ let resultFilter = [];
 
 let exception = strToArr('499, 495');
 let psm = strToArr('001000, 001001');
-let round = 59;
+let round = 10;
 
 let subscriberData;
 let phonecallsData;
@@ -33,7 +33,7 @@ let abc9Data;
 form.pref.value = exception;
 //form.psm.value = psm;
 form.cause.value = '17, 3, 1, 28';
-form.round.value = 10;
+form.round.value = round;
 form.sity.value = 'г. Москва и Московская область';
 form.prov.value = 'ПАО Мобильные ТелеСистемы';
 
@@ -291,9 +291,9 @@ start: for (let obj of callOut) {
     for (let pref of mn.mn) {
       if ( isCode(obj['Номер Б'], pref.combine) ) {
         obj['Оператор'] = pref.nameCountry;
-        obj['Тариф'] = String(pref.cost);
+        obj['Тариф'] = `${pref.cost}`;
         obj['Категория'] = 'МН';
-        obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( pref.cost.replace(',', '.') );
+        obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
         obj['Префикс'] = pref.preff;
         //table.append(createTables(obj));
         result.push(obj);
@@ -319,6 +319,7 @@ start: for (let obj of callOut) {
     exception: exception,
     excludeProv: '',
     excludeCity: '',
+    round: round
   });
 
   //const csv = arrObjtoCSV(callOut);
@@ -351,7 +352,7 @@ function makeTable(arrObj, {exception = [499, 495],
                             abc4 = false,
                             abc8 = false,
                             def9 = false,
-                            round = 1,
+                            round = 59,
                             base = false,
                             zerroMin = false} = {}) {
   resultFilter = [];
@@ -370,6 +371,7 @@ function makeTable(arrObj, {exception = [499, 495],
     }
 
     obj['Длит. (окр.)'] = strToMinutes(obj['Длит.'], round);
+    obj['Списание'] = +obj['Длит. (окр.)'] * parseFloat( obj['Тариф'].replace(',', '.') );
 
     if (zerroMin) {
       if (+obj['Длит. (окр.)'] === 0) continue start;
